@@ -1,0 +1,15 @@
+#Weights:
+0.3 0.3 0.4
+#Theta (Warning: it's necessary to include 0 to the remaining columns in theta):
+2.5 0 0
+#Decision matrix
+8.627 5.223 5
+9.838 4.023 8
+10.374 3.495 7
+8.200 5.659 4
+5.854 7.989 5
+8.108 5.790 8
+6.845 7.083 9
+5.738 6.238 7
+5.858 8.189 10
+6.269 7.808 5
