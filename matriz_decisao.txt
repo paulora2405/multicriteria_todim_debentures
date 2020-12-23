@@ -1,0 +1,15 @@
+#Pesos:
+0.3 0.3 0.4
+#Theta (lembrar de incluir um 0 para cada coluna além da primeira):
+1 0 0
+#Matriz decisão
+8 5 5
+9 4 8
+10 3 7
+8 5 4
+5 7 5
+8 5 8
+6 7 9
+5 6 7
+5 8 10
+6 7 5
