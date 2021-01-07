@@ -45,6 +45,7 @@ class TODIM:
                 self.weights = data[0, :]
                 self.theta = data[1, 0]
                 self.matrixD = data[2:, :]
+
             # Only the matrixD is passed in the .txt
             else:
                 self.matrixD = data
@@ -65,6 +66,10 @@ class TODIM:
         size = self.matrixD.shape
         [self.nAlt, self.nCri] = size
         self.normMatrixD = np.zeros(size, dtype=float)
+
+        # normalize matrix to sum of values to 1
+        # self.normalizeMatrix()
+
         self.delta = np.zeros([self.nAlt, self.nCri])
         self.rCloseness = np.zeros([self.nAlt, 1], dtype=float)
         # weight reference
@@ -76,6 +81,7 @@ class TODIM:
         print('Theta \n', self.theta)
 
     # Normalizeing the matrixD
+    # ************* DEPRECATED *************
     def normalizeMatrix(self):
         m = self.matrixD.sum(axis=0)
         for i in range(self.nAlt):
@@ -124,6 +130,7 @@ class TODIM:
 
     # To plot the Alternatives' name, just pass a list of names
     # To save the plot, just pass the files name on saveName
+
     def plotBars(self, names=None, saveName=None):
         sns.set_style("whitegrid")
         if names is not None:
