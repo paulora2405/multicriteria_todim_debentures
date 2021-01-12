@@ -46,30 +46,35 @@ class Todim:
                 self.normMatrixD[i, j] = self.matrixD[i, j] / m[j]
         print('A matriz foi normalizada, o maior valor de cada coluna é igual a 1')
         self.matrixD = self.normMatrixD
+        # print(self.matrixD)
 
     # normaliza os pesos
     def normalizeWeights(self):
         if self.weights.sum() > 1.001 or self.weights.sum() < 0.9999:
             self.weights = self.weights/self.weights.sum()
             print('Os pesos foram normalizados no intervalo [0,1]')
+        # print(self.weights.sum())
         # peso de referencia
         self.wref = self.weights.max()
 
-    # calcula o grau de dominio
+    # calcula o grau de dominio (matriz dominancia final)
     def getGrauDominio(self, verbose=False):
         self.getDelta()
+        # self.printDelta()
         aux = self.delta.sum(axis=1)
         for i in range(self.nAlt):
             self.rCloseness[i] = (aux[i] - aux.min()) / (aux.max() - aux.min())
         if verbose:
-            print(self.rCloseness)
+            self.printResult()
 
     def getDelta(self):
         for i in range(self.nAlt):
             for j in range(self.nCri):
                 self.delta[i, j] = self.getSumPhi(i, j)
+        # self.printDelta()
 
     def getSumPhi(self, i, j):
+        #m = np.zeros(self.nCri)
         m = 0
         for c in range(self.nCri):
             m = m + self.getPhi(i, j, c)
@@ -91,6 +96,15 @@ class Todim:
     # funcao modular para possibilitar outros tipos de comparações
     def getComparison(self, alt_i, alt_j, crit):
         return self.getDistance(alt_i, alt_j, crit)
+
+    def printResult(self):
+        for x in self.rCloseness:
+            print(x)
+
+    def printDelta(self):
+        for x in self.delta:
+            print(x)
+        print("\n\n")
 
     def plotBars(self, names=None, saveName=None):
         sns.set_style("whitegrid")
