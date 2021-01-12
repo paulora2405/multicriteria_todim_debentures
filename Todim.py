@@ -35,7 +35,7 @@ class Todim:
         tam = self.matrixD.shape
         [self.nAlt, self.nCri] = tam
         self.normMatrixD = np.zeros(tam, dtype=float)
-        self.delta = np.zeros([self.nAlt, self.nCri])
+        self.delta = np.zeros([self.nAlt, self.nAlt])
         self.rCloseness = np.zeros([self.nAlt, 1], dtype=float)
 
     # normaliza a matriz
@@ -69,7 +69,7 @@ class Todim:
 
     def getDelta(self):
         for i in range(self.nAlt):
-            for j in range(self.nCri):
+            for j in range(self.nAlt):
                 self.delta[i, j] = self.getSumPhi(i, j)
         # self.printDelta()
 
@@ -81,14 +81,22 @@ class Todim:
         return m
 
     def getPhi(self, i, j, c):
+        wcr = self.weights[c]/self.wref
+        sumWRef = self.getSumWRef()
         dij = self.getDistance(i, j, c)
         comp = self.getComparison(i, j, c)
         if comp == 0:
             return 0
         elif comp > 0:
-            return np.sqrt(self.weights[c]*abs(dij))
+            return np.sqrt((wcr*abs(dij))/sumWRef)
         else:
-            return np.sqrt(self.weights[c]*abs(dij))/(-self.theta)
+            return np.sqrt((sumWRef*abs(dij))/wcr)/(-self.theta)
+
+    def getSumWRef(self):
+        sumWRef = 0
+        for c in self.weights:
+            sumWRef += c / self.wref
+        return sumWRef
 
     def getDistance(self, alt_i, alt_j, crit):
         return (self.matrixD[alt_i, crit] - self.matrixD[alt_j, crit])
@@ -98,8 +106,8 @@ class Todim:
         return self.getDistance(alt_i, alt_j, crit)
 
     def printResult(self):
-        for x in self.rCloseness:
-            print(x)
+        print(self.rCloseness)
+        print(np.sort(self.rCloseness, axis=0)[::-1])
 
     def printDelta(self):
         for x in self.delta:
