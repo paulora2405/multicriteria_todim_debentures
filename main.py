@@ -1,7 +1,7 @@
 from Todim import Todim
 
 # PASSO 1 - Carregar a matriz de decisão
-matrizDecicao = Todim('matriz_decisao.txt', max=True)
+matrizDecicao = Todim('matriz_decisao.txt', max=True, theta=1)
 
 # PASSO 2 - Normalizar a matriz de decisão de forma que em cada coluna o valor total seja igual a um.
 matrizDecicao.normalizeMatrix()
