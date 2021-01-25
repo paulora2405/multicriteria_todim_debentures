@@ -18,7 +18,7 @@ class Todim:
     delta = None
     cProximidade = None   # O coeficiente relativo de proximidade
 
-    def __init__(self, *args, max=True):
+    def __init__(self, *args, max=True, theta=1):
         self.maximization = max
         # nargs = len(args)
 
@@ -60,7 +60,7 @@ class Todim:
 
     # normaliza os pesos
     def normalizeWeights(self):
-        if self.weights.sum() > 1.000 or self.weights.sum() < 1.000:
+        if self.weights.sum() > 1.0000001 or self.weights.sum() < 0.9999999:
             self.weights = self.weights/self.weights.sum()
             print('Os pesos foram normalizados no intervalo [0,1]')
         # print(self.weights.sum())
