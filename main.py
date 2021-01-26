@@ -4,7 +4,6 @@ import data_ingestion as di
 # PASSO 0 - Ingestão dos dados
 (theta, colunas, pesos) = di.ingestTXT("matriz_decisao.txt")
 (codigos, matriz) = di.ingestCSV(colunas)
-# https://stackoverflow.com/questions/13187778/convert-pandas-dataframe-to-numpy-array
 
 # PASSO 1 - Carregar a matriz de decisão
 matrizDecicao = Todim(matriz, pesos, codigos, theta, max=True)
