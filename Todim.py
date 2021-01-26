@@ -22,7 +22,7 @@ class Todim:
 
     def __init__(self, *args, max=True):
         self.maximization = max
-        if len(args) != 3:
+        if len(args) != 4:
             print("Não há parâmetros o suficiente.")
             raise ValueError
 
