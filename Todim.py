@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.lib.utils import deprecate
 import seaborn as sns
 import matplotlib.pyplot as plt
 from tabulate import tabulate
@@ -9,6 +10,7 @@ class Todim:
     matrixD = None      # A matriz de decisão com as alternativas e criterios
     maximization = None
     weights = None      # Os pesos para cada criterio
+    codes = None        # Os códigos de identificação das empresas
     wref = None
     theta = None        # O valor de theta
     nAlt = None         # O numero de alternativas
@@ -18,16 +20,32 @@ class Todim:
     delta = None
     cProximidade = None   # O coeficiente relativo de proximidade
 
-    def __init__(self, *args, max=True, theta=1):
+    def __init__(self, *args, max=True):
         self.maximization = max
-        # nargs = len(args)
+        if len(args) != 3:
+            print("Não há parâmetros o suficiente.")
+            raise ValueError
 
+        self.matrixD = np.asarray(args[0])
+        self.weights = np.asarray(args[1])
+        self.codes = np.asarray(args[2])
+        self.theta = args[3]
+
+        tam = self.matrixD.shape
+        [self.nAlt, self.nCri] = tam
+        self.normMatrixD = np.zeros(tam, dtype=float)
+        self.delta = np.zeros([self.nAlt, self.nAlt])
+        self.rCloseness = np.zeros([self.nAlt, 1], dtype=float)
+
+        self.printMatrix("Antes de tudo")
+
+        """
         # unico parametro é o nome do arquivo por enquanto
         fileName = args[0]
         try:
             data = np.loadtxt(fileName, dtype=float)
         except IOError:
-            print('ERROR: erro na leitura do arquivo de entrada!')
+            print('Erro na leitura do arquivo de entrada!')
             raise IOError
 
         self.weights = data[0, :]
@@ -42,6 +60,7 @@ class Todim:
         self.rCloseness = np.zeros([self.nAlt, 1], dtype=float)
 
         self.printMatrix("Antes de tudo")
+        """
 
     # normaliza a matriz
     def normalizeMatrix(self):
@@ -85,7 +104,7 @@ class Todim:
         # self.printDelta()
 
     def getSumPhi(self, i, j):
-        #m = np.zeros(self.nCri)
+        # m = np.zeros(self.nCri)
         m = 0
         for c in range(self.nCri):
             m = m + self.getPhi(i, j, c)
