@@ -3,11 +3,11 @@ import pandas as pd
 from pandas.core.indexing import IndexingMixin
 
 
-def ingestCSV(colunas):
+def ingestCSV(colunas, filename='test.csv'):
     if len(colunas) < 1:
         print("Erro nos parametros de {}()".format(ingestCSV.__name__))
         raise ValueError
-    raw_matrix = pd.read_csv('economatica.csv', encoding='utf-8')
+    raw_matrix = pd.read_csv(filename, encoding='utf-8')
     codes = raw_matrix[colunas[:1]]
     matrix = raw_matrix[colunas[1:]]
 
@@ -30,9 +30,11 @@ def ingestTXT(filename="matriz_decisao.txt"):
 
     return (theta, colums, weights)
 
+
 # colunas_selecionadas = ["Codigo", "Volume",
 #                         "Retorno 12 meses [%]", "Índice de correção"]
-# print(ingestCSV(colunas_selecionadas))
+# print(ingestCSV(colunas_selecionadas)[0])
+# print(ingestCSV(colunas_selecionadas)[1])
 
 # filename = "matriz_decisao.txt"
 # colums = np.loadtxt(filename, max_rows=2, skiprows=2, dtype=str, delimiter=",")
