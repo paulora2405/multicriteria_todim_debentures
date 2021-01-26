@@ -1,13 +1,7 @@
+#Theta
+1
+# Colunas a serem selecionadas (separados por ,)
+Codigo,Volume,Retorno 12 meses [%],Índice de correção
 #Pesos:
 0.1471 0.1471 0.0588 0.0588 0.0882 0.2083 0.0833 0.2083
-#Nomes
-Codigo,Volume em 06 meses
 #DI: 2,76 IPCA 4,5173
-#Theta (lembrar de incluir um 0 para cada coluna além da primeira):
-1 0 0 0 0 0 0 0
-#Matriz decisão
-6 8 20 10 10 8 5 20
-10 20 10 10 10 32 10 20
-2 4 0 20 0 0 5 0
-8 16 20 0 30 40 5 10
-4 8 20 20 20 16 10 20
