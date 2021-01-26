@@ -1,7 +1,13 @@
-from Todim import Todim
+from .Todim import Todim
+import data_ingestion as di
+
+# PASSO 0 - Ingestão dos dados
+(theta, colunas, pesos) = di.ingestTXT("matriz_decisao.txt")
+(codigos, matriz) = di.ingestCSV(colunas)
+# https://stackoverflow.com/questions/13187778/convert-pandas-dataframe-to-numpy-array
 
 # PASSO 1 - Carregar a matriz de decisão
-matrizDecicao = Todim('matriz_decisao.txt', max=True, theta=1)
+matrizDecicao = Todim(matriz, pesos, codigos, theta, max=True)
 
 # PASSO 2 - Normalizar a matriz de decisão de forma que em cada coluna o valor total seja igual a um.
 matrizDecicao.normalizeMatrix()
