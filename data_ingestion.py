@@ -10,11 +10,41 @@ def ingestCSV(colunas, filename='test.csv'):
         raw_matrix = pd.read_csv(filename, encoding='utf-8')
         codes = raw_matrix[colunas[:1]]
         matrix = raw_matrix[colunas[1:]]
+        if ("Índice de correção" in colunas):
+            applyIndex(matrix)
+
     except IOError:
         print("Erro na leitura do arquivo de entrada em ingestCSV()!")
         raise IOError
 
     return (codes, matrix)
+
+
+def applyIndex(matrix):
+    indices = matrix["Índice de correção"]
+    di = 3
+    ipca = 4
+    for i in range(len(indices)):
+        if indices[i].split(' ')[0] == 'DI':  # DI Spread
+            s = indices[i].split(' ')
+            s = s[2][:-1]
+            s = s.replace(',', '.')
+            s = float(s)
+            s = di + s
+        elif indices[i].split(' ')[0] == 'IPCA':  # IPCA Spread
+            s = indices[i].split(' ')
+            s = s[2][:-1]
+            s = s.replace(',', '.')
+            s = float(s)
+            s = ipca + s
+        else:  # Percent DI
+            s = indices[i].split(' ')
+            s = s[0][:-1]
+            s = s.replace(',', '.')
+            s = float(s)
+            s = di * s/100
+        matrix.at[i, "Índice de correção"] = s
+    # print(matrix)
 
 
 def ingestTXT(filename="matriz_decisao.txt"):

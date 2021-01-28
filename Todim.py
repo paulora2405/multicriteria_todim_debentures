@@ -75,7 +75,7 @@ class Todim:
                     self.normMatrixD[i, j] = (1/self.matrixD[i, j]) / (1/m[j])
         print('A matriz foi normalizada, o maior valor de cada coluna é igual a 1')
         self.matrixD = self.normMatrixD
-        self.printMatrix("depois de normalizar")
+        #self.printMatrix("depois de normalizar")
 
     # normaliza os pesos
     def normalizeWeights(self):
@@ -85,7 +85,7 @@ class Todim:
         # print(self.weights.sum())
         # peso de referencia
         self.wref = self.weights.max()
-        print(self.weights)
+        # print(self.weights)
 
     # calcula o grau de dominio (matriz dominancia final)
     def getGrauDominio(self, verbose=False):
@@ -140,11 +140,11 @@ class Todim:
         return self.getDistance(alt_i, alt_j, crit)
 
     def printMatrix(self, s):
-        print(s)
+        # print(s)
         headers = ["col{}".format(i+1) for i in range(self.nCri)]
         table = tabulate(self.matrixD, headers,
                          tablefmt="fancy_grid", showindex=True)
-        print(table)
+        # print(table)
 
     def printResult(self):
         print("Não ordenado:")

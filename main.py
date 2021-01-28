@@ -1,5 +1,11 @@
-from .Todim import Todim
+from Todim import Todim
 import data_ingestion as di
+import scrap as scrapIpcaDi
+
+# Web Scraping dos valoresdo IPCA e DI
+ipca = scrapIpcaDi.getIpca()
+di = scrapIpcaDi.getdi()
+
 
 # PASSO 0 - Ingestão dos dados
 (theta, colunas, pesos) = di.ingestTXT("matriz_decisao.txt")
@@ -18,4 +24,4 @@ matrizDecicao.normalizeWeights()
 matrizDecicao.getGrauDominio(verbose=True)
 
 # PASSO 5 - Plotar um gráfico
-# matrizDecicao.plotBars(['Alt 1', 'Alt 2', 'Alt 3'])
+#matrizDecicao.plotBars(['Alt 1', 'Alt 2', 'Alt 3'])
