@@ -21,6 +21,7 @@ class Todim:
     cProximidade = None   # O coeficiente relativo de proximidade
 
     def __init__(self, *args, max=True):
+        print("Inicializando as variáveis para o Método Todim")
         self.maximization = max
         if len(args) != 4:
             print("Não há parâmetros o suficiente.")
@@ -36,8 +37,6 @@ class Todim:
         self.normMatrixD = np.zeros(tam, dtype=float)
         self.delta = np.zeros([self.nAlt, self.nAlt])
         self.rCloseness = np.zeros([self.nAlt, 1], dtype=float)
-
-        self.printMatrix("Antes de tudo")
 
         """
         # unico parametro é o nome do arquivo por enquanto
@@ -111,9 +110,6 @@ class Todim:
             # self.printPhi()
         return m
 
-    def printPhi():
-        pass
-
     def getPhi(self, i, j, c):
         wcr = self.weights[c]/self.wref
         sumWRef = self.getSumWRef()
@@ -144,13 +140,14 @@ class Todim:
         headers = ["col{}".format(i+1) for i in range(self.nCri)]
         table = tabulate(self.matrixD, headers,
                          tablefmt="fancy_grid", showindex=True)
-        # print(table)
+        print(table)
 
     def printResult(self):
-        print("Não ordenado:")
-        print(self.rCloseness)
+        # print("Não ordenado:")
+        # print(self.rCloseness)
         # print("Ordenado:")
         # print(np.sort(self.rCloseness, axis=0)[::-1])
+        pass
 
     def printDelta(self):
         for x in self.delta:
@@ -158,9 +155,19 @@ class Todim:
         print("\n\n")
 
     def plotBars(self, names=None, saveName=None):
+
+        # une as matrizes com as abreviações dos nomes das debentures aos resultados obtidos respectivamente
+        all_data = np.append(self.codes, self.rCloseness, 1)
+
+        # ordena a matriz numpy de acordo com a segunda coluna(valores finais obtidos pelo Todim)
+        ind = np.argsort(all_data[:, 1])
+        all_data = all_data[ind]
+
+        # exibe uma grafico e barras
         sns.set_style("whitegrid")
-        if names is not None:
-            a = sns.barplot(names, self.rCloseness[:, 0], palette="BuGn_d")
+        if self.codes is not None:
+            a = sns.barplot(
+                all_data[:, 0], all_data[:, 1], palette="BuGn_d")
         else:
             a = sns.barplot(None, self.rCloseness[:, 0], palette="BuGn_d")
 
