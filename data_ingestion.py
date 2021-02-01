@@ -3,19 +3,22 @@ import pandas as pd
 import scrap
 
 
-def ingestCSV(colunas, filename='test.csv'):
+def ingestCSV(colunas, filename='economatica.csv'):
     print("Importando o .csv")
     if len(colunas) < 1:
         print("Erro nos parametros de {}()".format(ingestCSV.__name__))
         raise ValueError
     try:
         raw_matrix = pd.read_csv(filename, encoding='utf-8')
+
+        raw_matrix.dropna(
+            subset=['Volume', 'Retorno 12 meses [%]'], inplace=True)
+        raw_matrix.reset_index(inplace=True)
+
         codes = raw_matrix[colunas[:1]]
         matrix = raw_matrix[colunas[1:]]
         if ("Índice de correção" in colunas):
             applyIndex(matrix)
-
-        executeFilters()
 
     except IOError:
         print("Erro na leitura do arquivo de entrada em ingestCSV()!")
@@ -43,6 +46,7 @@ def ingestTXT(filename="matriz_decisao.txt"):
 
 
 def applyIndex(matrix):
+    indice_str = "Índice de correção"
     print("Aplicando DI e IPCA aos índices de correção")
     indices = matrix["Índice de correção"]
     di = scrap.getCdi()
@@ -50,7 +54,7 @@ def applyIndex(matrix):
     for i in range(len(indices)):
         if indices[i].split(' ')[0] == 'DI':  # DI Spread
             s = indices[i].split(' ')
-            s = s[2][:-1]
+            s = s[-1][:-1]
             s = s.replace(',', '.')
             s = float(s)
             s = di + s
@@ -66,5 +70,8 @@ def applyIndex(matrix):
             s = s.replace(',', '.')
             s = float(s)
             s = di * s/100
-        matrix.at[i, "Índice de correção"] = s
+        matrix.at[i, indice_str] = s
     # print(matrix)
+
+
+# TESTS
