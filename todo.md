@@ -1,4 +1,4 @@
 # TODO list
-- Criar método de exclusão de entradas com colunas vazias.
-- Plotar um grafico com as 10 melhores escolhas de debentures (ordenando os resultados).
+- Alterar filtro da coluna Índice de correção para utilizar o split('+')
+- Melhorar o grafico com as 20 melhores escolhas de debentures
 - Documentar tudo

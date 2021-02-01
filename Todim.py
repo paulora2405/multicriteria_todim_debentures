@@ -162,17 +162,22 @@ class Todim:
         # ordena a matriz numpy de acordo com a segunda coluna(valores finais obtidos pelo Todim)
         ind = np.argsort(all_data[:, 1])
         all_data = all_data[ind]
+        all_data = all_data[::-1]
+        all_data = all_data[:20]
+        print(all_data)
 
         # exibe uma grafico e barras
         sns.set_style("whitegrid")
         if self.codes is not None:
-            a = sns.barplot(
-                all_data[:, 0], all_data[:, 1], palette="BuGn_d")
+            # a = sns.barplot(all_data[:, 0], all_data[:, 1], palette="BuGn_d")
+            a = sns.barplot(all_data[:, 1], all_data[:, 0], palette="BuGn_d")
         else:
             a = sns.barplot(None, self.rCloseness[:, 0], palette="BuGn_d")
 
-        a.set_ylabel("Closeness Coeficient")
-        a.set_xlabel('Alternatives')
+        # a.set_ylabel("Closeness Coeficient")
+        # a.set_xlabel('Alternatives')
+        a.set_xlabel("Closeness Coeficient")
+        a.set_ylabel('Alternatives')
         fig = a.get_figure()
         plt.show()
 
