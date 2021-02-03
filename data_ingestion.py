@@ -78,7 +78,7 @@ def applyIndex(matrix):
             s = float(s)
             s = ipca + s
         else:  # DI Percentual
-            s = indices[i].split('do')
+            s = indices[i].lower().split('d')
             s = s[0].strip()[:-1]
             s = s.replace(',', '.')
             s = float(s)
