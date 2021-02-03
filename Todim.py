@@ -8,17 +8,17 @@ from tabulate import tabulate
 class Todim:
 
     matrixD = None      # A matriz de decisão com as alternativas e criterios
-    maximization = None
+    maximization = None  # Maximizar ou minimizar?
     weights = None      # Os pesos para cada criterio
     codes = None        # Os códigos de identificação das empresas
-    wref = None
+    wref = None         # Peso de referencia
     theta = None        # O valor de theta
     nAlt = None         # O numero de alternativas
     nCri = None         # O numero de criterios
     normMatrixD = None  # A matrizD normalizada
-    phi = None
-    delta = None
-    cProximidade = None   # O coeficiente relativo de proximidade
+    phi = None          # Parcela de contribuição de um criterio
+    delta = None        # Matriz nAlt x nAlt, cada endereço é composto pela dominancia de uma alternativa i sobre uma j
+    cProximidade = None  # O coeficiente relativo de proximidade
 
     def __init__(self, *args, max=True):
         print("Inicializando as variáveis para o Método Todim")

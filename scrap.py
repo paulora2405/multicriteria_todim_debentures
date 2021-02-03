@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import json
 
+# As funções abaixo realizam uma raspagem de dados em sites que fornecem o valor do IPCA e CDI acumulado nos ultimos 12 meses
+
 
 def getIpcaIBGE():
     print("Buscando valor do IPCA:", end='\t')
@@ -14,11 +16,13 @@ def getIpcaIBGE():
 
     soup = BeautifulSoup(req.content, 'html.parser')
 
+    # isolar o dado que queremos
     table = str(soup.find('tr', id='indicador-ipca').find('td',
                                                           class_='dozemeses').contents)
     ipca = table.split()
     ipca = ipca[5]
     ipca = float(ipca.replace(',', '.'))
+
     print(ipca)
     return ipca
 
@@ -31,11 +35,12 @@ def getIpca():
 
     soup = BeautifulSoup(req.content, 'html.parser')
 
+    # isolar o dado que queremos
     ipca = soup.find('input', id='indice-acum')['value']
-
     ipca = ipca.split()
     ipca = ipca[0]
     ipca = float(ipca.replace(',', '.'))
+
     print(ipca)
     return ipca
 
@@ -48,10 +53,11 @@ def getCdi():
 
     soup = BeautifulSoup(req.content, 'html.parser')
 
+    # isolar o dado que queremos
     cdi = soup.find('input', id='indice-acum')['value']
-
     cdi = cdi.split()
     cdi = cdi[0]
     cdi = float(cdi.replace(',', '.'))
+
     print(cdi)
     return cdi

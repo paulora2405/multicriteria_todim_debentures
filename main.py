@@ -13,7 +13,7 @@ matrizDecicao = Todim(matriz, pesos, codigos, theta, max=True)
 # PASSO 2 - Normalizar a matriz de decisão de forma que em cada coluna o valor total seja igual a um.
 matrizDecicao.normalizeMatrix()
 
-# PASSO 3 - Normalizar ao peso dos criterios no intervalo [0,1]
+# PASSO 3 - Normalizar ao peso dos criterios para que a soma de todos os pesos seja igual a um.
 matrizDecicao.normalizeWeights()
 
 # PASSO 4 - Calcular o grau de dominância
