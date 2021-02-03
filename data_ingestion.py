@@ -65,21 +65,21 @@ def applyIndex(matrix):
     ipca = scrap.getIpca()
 
     for i in range(len(indices)):
-        if indices[i].split(' ')[0] == 'DI':  # DI Spread
-            s = indices[i].split(' ')
-            s = s[-1][:-1]
+        if indices[i].split('+')[0].strip() == 'DI':  # DI Spread
+            s = indices[i].split('+')
+            s = s[-1].strip()[:-1]
             s = s.replace(',', '.')
             s = float(s)
             s = di + s
-        elif indices[i].split(' ')[0] == 'IPCA':  # IPCA Spread
-            s = indices[i].split(' ')
-            s = s[2][:-1]
+        elif indices[i].split('+')[0].strip() == 'IPCA':  # IPCA Spread
+            s = indices[i].split('+')
+            s = s[-1].strip()[:-1]
             s = s.replace(',', '.')
             s = float(s)
             s = ipca + s
-        else:  # Percent DI
-            s = indices[i].split(' ')
-            s = s[0][:-1]
+        else:  # DI Percentual
+            s = indices[i].split('do')
+            s = s[0].strip()[:-1]
             s = s.replace(',', '.')
             s = float(s)
             s = di * s/100
